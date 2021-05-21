@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <!-- P5.js -->
+  <!-- PLEASE NO CHANGES BELOW THIS LINE (UNTIL I SAY SO) -->
+  <script language="javascript" type="text/javascript" src="lib/p5.min.js"></script>
+  <script language="javascript" type="text/javascript" src="lib/p5.sound.min.js"></script>
+  <script language="javascript" type="text/javascript" src="app/sound.js"></script>
+  <script language="javascript" type="text/javascript" src="lib/p5.speech.js"></script>
+  <!-- OK, YOU CAN MAKE CHANGES BELOW THIS LINE AGAIN -->
+
+  <script type="text/javascript" src="lib/p5.dom.min.js"></script>
+  <!--<script type="text/javascript" src="app/setupSpeech.js"></script>-->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <script type="text/javascript" src="lib/jquery.min.js"></script>
+
+
+  <!-- Underscore/Backbone -->
+  <script type="text/javascript" src="lib/underscore.min.js"></script>
+  <script type="text/javascript" src="lib/backbone.min.js"></script>
+
+
+  <!--Media Pipi Detection-->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils@0.1/control_utils.css">
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.1/camera_utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils@0.1/control_utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.2/drawing_utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.1/hands.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" type="text/css" href="video.css">
+</head>
+
+<body>
+
+
+  <!-- <img src="img/kapithaka.jpg" alt="Mudras-1" class="mudras" id="mudras_1">
+    <img src="img/mudra_khya.jpg" alt="Mudras-2" class="mudras" id="mudras_2">
+    <img src="img/mukura.jpg" alt="Mudras-3" class="mudras" id="mudras_3">
+    <img src="img/suchi_mukha.jpg" alt="Mudras-4" class="mudras" id="mudras_4">
+    <img src="img/stop.jpg" alt="Stop" class="mudras" id="stop_0"> -->
+  <div class="sidebar">
+
+    <div class="video_container" id="video_container">
+      <video class="input_video"></video>
+      <canvas class="output_canvas" width="1280px" height="800px"></canvas>
+      <div class="loading">
+        <div class="spinner"></div>
+      </div>
+
+      <div class="instruction_dashboard" id="dashboard">
+        Tips for Left Hand:<br><br>
+        ✋ Show instruction<br>
+        ✊ Close instruction<br>
+        <br>
+        Tips for Right Hand:<br><br>
+
+        <div class="mudras_pic_in">
+          <img src="img/kapithaka.jpg" alt="Mudras-1" class="mudras">
+          Kapithaka Mudras
+          <img src="img/mudra_khya.jpg" alt="Mudras-2" class="mudras">
+          Mudra Khya<br><br>
+          <img src="img/mukura.jpg" alt="Mudras-3" class="mudras">
+          Mukura Mudras
+          <img src="img/suchi_mukha.jpg" alt="Mudras-4" class="mudras">
+          Mukha<br><br>
+          <img src="img/stop.jpg" alt="Stop" class="mudras">
+          Stop<br><br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="signal">
+    <div class="detected" id="detected">✋Hand Detected</div>
+  </div>
+
+
+
+  <div>
+
+    <audio src="sounds/chime/chime_1.mp3" id="chime_1" class="audio"></audio>
+    <audio src="sounds/chime/chime_2_zen_budd.mp3" id="chime_2" class=" audio"></audio>
+    <audio src="sounds/chime/chime_3_Japanese.mp3" id="chime_3" class="audio"></audio>
+    <audio src="sounds/chime/chime_4_daydream.mp3" id="chime_4" class="audio"></audio>
+
+    <div class="mudras_pic">
+
+
+
+      <img src="img/1_kapithaka.png" alt="Mudras-1" class="mudras_1" id="mudras_1">
+      <img src="img/1_mudra_khya.png" alt="Mudras-2" class="mudras_2" id="mudras_2">
+      <img src="img/1_mukura.png" alt="Mudras-3" class="mudras_3" id="mudras_3">
+      <img src="img/1_suchi_mukha.png" alt="Mudras-4" class="mudras_4" id="mudras_4">
+      <!-- <img src="img/stop.jpg" alt="Stop" class="mudras_0" id="stop_0"> -->
+
+
+
+    </div>
+
+    <script src="app/set_up_gesture.js"></script>
+
+    <script language="javascript" type="text/javascript" src="interface_prototype.js"></script>
+
+</body>
+
+</html>
