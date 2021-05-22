@@ -46,6 +46,7 @@ let sound_prev = true;
 let myRec;
 let speech;
 let first_time = true;
+let first_time_out = true;
 
 // Mudra img
 let one;
@@ -406,6 +407,14 @@ function draw() {
 
         ////END SCREEN
     } else if (mode === "end_screen") {
+
+        //Voice
+        if ((first_time_out)) {
+            speech.setVolume(0.2)
+            speech.speak('Namaste.')
+            first_time_out = false;
+        }
+
         fill(Interface.main.TextColor);
         textSize(30);
         textAlign(CENTER)
@@ -803,18 +812,16 @@ function parseResult() {
     var mostrecentword = myRec.resultString.split(' ').pop();
     console.log(mostrecentword);
 
-    if ((mode === 'meditation') || (mode === 'instructions')) {
-        var user_commands = ['namaste', 'nice', 'finish', 'end', 'done', 'back', 'return'];
-        user_commands.forEach(word => {
+    if (mode === 'meditation' || mode === 'instructions') {
+        var go_back_commands = ['namaste', 'nice', 'finish', 'end', 'done'];
+        go_back_commands.forEach(word => {
             if (mostrecentword.indexOf(word) !== -1) {
-                if (word.indexOf('back') === -1 || word.indexOf('return') === -1) {
-                    changeModeEnd();
-                } else {
-                    changeModeMain();
-                }
+                changeModeEnd();
             }
         })
-
+        if (mostrecentword.indexOf('back') !== -1 || (mostrecentword.indexOf('return') !== -1)){
+            changeModeMain();
+        }
     } else if (mode === 'main') {
 
         if (mostrecentword.indexOf('focus') !== -1 || (mostrecentword.indexOf('Focus') !== -1)) {
