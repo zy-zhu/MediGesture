@@ -37,9 +37,6 @@ let angle;
 //Images
 let namaste;
 
-//Offscreen graphic for circle effect
-let pg;
-
 //Sound
 let sound_focus, sound_happy, sound_zen, sound_relax, sound_bell;
 let sound = false;
@@ -89,9 +86,8 @@ function preload() {
     sound_happy = loadSound('sounds/joy.mp3');
     sound_zen = loadSound('sounds/zen.mp3');
     sound_relax = loadSound('sounds/sleep.mp3');
-    sound_bell = loadSound('sounds/bell.mp3');
-
     namaste = loadImage('assets/namaste.png');
+
     // Load mudra img
     one = loadImage('assets/1.png');
     two = loadImage('assets/2.png');
@@ -135,13 +131,10 @@ function setup() {
     sound = sound_focus;
 
     speech = new p5.Speech()
+    speech.continuous = false;
+    speech.onError = restart;
+    speech.onEnd = restart;
 
-    //Gesture
-
-
-
-
-    //frameRate(5);
     instr_button = createButton('Instructions');
     back_button = createButton('Back');
 
@@ -160,7 +153,6 @@ function setup() {
     instr_button.hide()
 
     per = 0
-
     textFont(font)
 }
 
@@ -170,15 +162,17 @@ function draw() {
     diam = windowWidth / 6;
     rad = diam / 2;
 
+    speech.onEnd = restart;
+
 
     if (frameCount < 100) {
         fill(Interface.main.TextColor);
         textSize(24);
         text('Loading…', windowWidth / 2, windowHeight / 2);
+
         // Erase Instructions
         //textSize(12);
         //text('This page is used until connection with sensor is established. Hit SPACEBAR to go to first page', windowWidth/2, windowHeight/8);
-
 
 
     } else if (frameCount === 200) {
@@ -250,7 +244,7 @@ function draw() {
         //Voice
         if ((first_time)) {
             speech.setVolume(0.2)
-            speech.speak('Welcome to Mind and Hand. How are you feeling today!.')
+            speech.speak('Welcome to Mind and Hand. How are you feeling today! Select a mood for your journey.')
             first_time = false;
         }
 
@@ -268,8 +262,6 @@ function draw() {
 
         if (dist(windowWidth / 5, windowHeight / 2, mouseX, mouseY) < diam / 2) {
             //focus
-            //fill(Interface.meditation.CircleHover[0]);
-            //ellipse( windowWidth / 5, windowHeight / 2, diam, diam);
             imageMode(CENTER)
             yellow1.resize(diam, 0)
             yellow2.resize(diam, 0)
@@ -412,12 +404,6 @@ function draw() {
             sound.play();
         }
 
-
-
-        //ellipse(windowWidth / 2, windowHeight / 2, diam, diam);
-
-
-
         ////END SCREEN
     } else if (mode === "end_screen") {
         fill(Interface.main.TextColor);
@@ -503,16 +489,12 @@ function drawEllipses() {
         pink1.resize(diam, 0)
         pink2.resize(diam, 0)
         pink3.resize(diam, 0)
-        //pink4.resize(diam, 0)
-        // pink5.resize(diam, 0)
         push()
         translate(2 * windowWidth / 5, windowHeight / 2)
         //rotate(sin(PI/6)*frameCount/72)
         image(pink1, 0, 0)
         image(pink2, 0, 0)
         image(pink3, 0, 0)
-        //image(pink4, 0,0)
-        // image(pink5, 0,0)
         pop()
     }
 
@@ -520,7 +502,6 @@ function drawEllipses() {
     zen2.resize(diam, 0)
     push()
     translate(3 * windowWidth / 5, windowHeight / 2)
-    //rotate(sin(PI/6)*frameCount/24)
     image(zen1, 0, 0)
     image(zen2, 0, 0)
     pop()
@@ -529,7 +510,6 @@ function drawEllipses() {
     sleep2.resize(diam, 0)
     push()
     translate(4 * windowWidth / 5, windowHeight / 2)
-    //rotate(sin(PI/6)*frameCount/36)
     image(sleep1, 0, 0)
     image(sleep2, 0, 0)
     pop()
@@ -560,17 +540,15 @@ function drawInstructions() {
     rectMode(CORNER)
     fill(255)
     rect(x_pos, windowHeight / 12 + leading / 3 + gap + 15, 300, 2)
-
-
-
     noStroke()
+
     /// Position
     textSize(ts_b)
     stroke(255)
     strokeWeight(1)
     text("Setup", x_pos, y_pos + leading + gap - 3)
     noStroke()
-    let sentences1 = ["You can stay seated on a floor or a chair to meditate.", "Place the computer screen at a distance that feels comfortable to the eye.", "Place your hand in front of the camera and notice the red sign as soon as the hand is recognized.", " "]
+    let sentences1 = ["You can stay seated on a floor or a chair to meditate.", "Place the computer screen at a distance that feels comfortable to the eye.", "Place your hand in front of the camera and notice the red sign as soon as the hand is recognized."]
     textSize(ts_s);
     for (let i = 0; i < sentences1.length; i++) {
         textAlign(LEFT)
@@ -579,12 +557,7 @@ function drawInstructions() {
     }
 
     let step1 = num
-    //2. Pose the mudras, then chime sounds on, show mudras recognized on the screen
-    // 3. Put hand down, recognized symbol off
-    // 4. Stop the music, (squeeze the  hand)
-    //
-    // The experimenting function is (if I could implement tonight or tmr afternoon)
-    // 1.  Adjust volume by increase the put hands up and down
+
     ///Navigation / Selection
     textSize(ts_b)
     stroke(255)
@@ -592,7 +565,7 @@ function drawInstructions() {
     text("Interface Navigation", x_pos, y_pos + step1 * leading + 2 * gap - 3)
     noStroke()
     let sentences2 = ['You can navigate the different screens with your voice. Select between the different meditation modes by name',
-        'You can say: “focus”, “happy” or “joy”, “Zen”, “sleep” or “relax”', 'to select a meditation mode.', 'During meditation you can press SPACE to return to the main page', 'Press F to enter of exit fullscreen mode', " "]
+        'You can say: “focus”, “happy” or “joy”, “Zen”, “sleep” or “relax”', 'to select a meditation mode.', 'During meditation you can press SPACE to return to the main page', 'Press F to enter of exit fullscreen mode']
     textSize(ts_s);
     for (let i = 0; i < sentences2.length; i++) {
         text(sentences2[i], x_pos, y_pos + leading * (i + 1) + step1 * leading + 2 * gap);
@@ -600,13 +573,14 @@ function drawInstructions() {
     }
 
     let step2 = num
+
     ///// Gestures
     textSize(ts_b)
     stroke(255)
     strokeWeight(1)
     text("Mudras", x_pos, y_pos + step2 * leading + 3 * gap - 3)
     noStroke()
-    let sentences3 = ["Time for the mudras! You can use the mudras in the pictures during meditation.", "Make sure the gestures can be seen be the camera, and let the sounds guide you into a deeper meditation.", "When in silence, you can end your journey by holding your fist in front of the camera.", "Just follow the example of the last picture.", " "]
+    let sentences3 = ["Time for the mudras! You can use the mudras in the pictures during meditation.", "Make sure the gestures can be seen be the camera, and let the sounds guide you into a deeper meditation.", "When in silence, you can end your journey by holding your fist in front of the camera.", "Just follow the example of the last picture.", "Use the Mudras Reminder window to help you learn!"]
     textSize(ts_s);
     for (let i = 0; i < sentences3.length; i++) {
         text(sentences3[i], x_pos, y_pos + leading * (i + 1) + step2 * leading + 3 * gap);
@@ -620,9 +594,9 @@ function drawInstructions() {
     stroke(255)
     rectMode(CENTER)
     fill(255)
-    rect(windowWidth / 2, y_pos + leading * step3 + 3 * gap + 65, windowWidth / 2, 120)
+    rect(windowWidth / 2, y_pos + leading * step3 + 3 * gap + 80, windowWidth / 2, 120)
     imageMode(CENTER)
-    image(mudras_all, windowWidth / 2, y_pos + leading * step3 + 3 * gap + 65, 5 * 120, 120)
+    image(mudras_all, windowWidth / 2, y_pos + leading * step3 + 3 * gap + 80, 5 * 120, 120)
 
     //// Goodbye
     textSize(ts_b)
@@ -641,8 +615,9 @@ function drawInstructions() {
     text('Enjoy your Journey!', x_pos, y_pos + step4 * leading + 4 * gap + dim + d / 2 + 2 * leading);
 }
 
-function drawMoods() {
 
+
+function drawMoods() {
     let diam = windowWidth / 5;
     if (moodNum === 0) {
         //focus
@@ -690,15 +665,6 @@ function drawMoods() {
         image(zen1, 0, 0)
         image(zen2, 0, 0)
         pop()
-        // if (system.particles.length < 2) {
-        //     system.particles.push(new Particle());
-        // } else {
-        //     system.particles.shift();
-        //     system.particles.shift();
-        // }
-        // system.run();
-        //fill(Interface.meditation.CircleColor[moodNum]);
-        //ellipse( windowWidth / 2, windowHeight / 2, 3*diam/4, 3*diam/4);
 
     } else if (moodNum === 3) {
         // fill(Interface.meditation.CircleHover[3]);
@@ -714,6 +680,7 @@ function drawMoods() {
     }
 
 }
+
 
 //////// Instructions Button
 function displayButton(button) {
@@ -733,6 +700,7 @@ function displayButton(button) {
     }
 }
 
+////////// Change between Meditation Modes
 function changeModeInstr() {
     instr_button.hide();
     back_button.show();
@@ -767,7 +735,6 @@ function displaySlider(slider) {
 
 
 //Particle Effect Classes
-
 let Particle = function () {
     this.position = createVector(system.center.x, system.center.y);
     this.pcolor = color(255, 255, 255, random(180));
@@ -800,7 +767,6 @@ let ParticleSystem = function (center) {
     this.particles = [];
 };
 
-
 // Particle.prototype.connect = function () {
 //     system.particles.forEach(particle => {
 //         let d = dist(this.position.x, this.position.y, particle.position.x, particle.position.y);
@@ -824,7 +790,13 @@ ParticleSystem.prototype.run = function () {
 };
 
 
-// Speech
+///////////// Speech  functions
+
+function restart(){
+    speech.start();
+    console.log("Restarted Speech")
+}
+
 function parseResult() {
     // recognition system will often append words into phrases.
     // so hack here is to only use the last word:
@@ -832,10 +804,10 @@ function parseResult() {
     console.log(mostrecentword);
 
     if ((mode === 'meditation') || (mode === 'instructions')) {
-        var user_commands = ['namaste', 'nice', 'finish', 'end', 'done', 'back'];
+        var user_commands = ['namaste', 'nice', 'finish', 'end', 'done', 'back', 'return'];
         user_commands.forEach(word => {
             if (mostrecentword.indexOf(word) !== -1) {
-                if (word.indexOf('back') === -1) {
+                if (word.indexOf('back') === -1 || word.indexOf('return') === -1) {
                     changeModeEnd();
                 } else {
                     changeModeMain();
@@ -849,11 +821,11 @@ function parseResult() {
             changeModeMeditation();
             mode = "meditation";
             moodNum = 0;
-        } else if (mostrecentword.indexOf('happy') !== -1 || (mostrecentword.indexOf('joy') !== -1)) {
+        } else if (mostrecentword.indexOf('happy') !== -1 || (mostrecentword.indexOf('joy') !== -1) || (mostrecentword.indexOf('Joy') !== -1)) {
             changeModeMeditation();
             mode = "meditation";
             moodNum = 1;
-        } else if (mostrecentword.indexOf('zen' || 'Zen') !== -1) {
+        } else if (mostrecentword.indexOf('zen') !== -1 || (mostrecentword.indexOf('Zen') !== -1)) {
             changeModeMeditation();
             mode = "meditation";
             moodNum = 2;
@@ -865,10 +837,11 @@ function parseResult() {
             mode = "instructions";
             changeModeInstr()
         }
+    } else if (mode === "end_screen") {
+        if (mostrecentword.indexOf("back") !== -1 || mostrecentword.indexOf("return") !== -1  ) {
+            changeModeMain();
+        }
     }
-
-
-
 }
 
 
