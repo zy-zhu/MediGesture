@@ -1,5 +1,6 @@
-# 6.835-final-project-immersive-meditation
-final project for MIT 6.835 immersive multimodal meditation, a meditation mudras learning &amp; experience tool
+# MediGesture - immersive-meditation with multimodel interaction 
+immersive multimodal meditation, a meditation mudras learning &amp; experience tool
+
 
 > View the lastest version in [your own browser](https://zy-zhu.github.io/MediGesture/)
 
@@ -32,4 +33,6 @@ python -m http.server
 ```
 
 ## Contributors
-Immersive Multimodal Meditation is a project by [Ziyuan Zhu](https://iam-zy.com/) and [Kat Labrou](https://github.com/babel-kat)
+MediGesture - Immersive Multimodal Meditation is a project by 
+[Ziyuan Zhu](https://iam-zy.com/)
+[Kat Labrou](https://github.com/babel-kat)
