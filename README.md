@@ -1,10 +1,10 @@
 # 6.835-final-project-immersive-meditation
 final project for MIT 6.835 immersive multimodal meditation, a meditation mudras learning &amp; experience tool
 
-> View the lastest version in [your own browser](https://zy-zhu.github.io/medigesture/)
+> View the lastest version in [your own browser](https://zy-zhu.github.io/MediGesture/)
 
 
-[<img src="assets/interface.jpg" width="100%">](https://zy-zhu.github.io/medigesture/)
+[<img src="assets/interface.jpg" width="100%">](https://zy-zhu.github.io/MediGesture/)
 
 ## Abstract 
 
