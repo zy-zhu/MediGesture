@@ -32,4 +32,4 @@ python -m http.server
 ```
 
 ## Contributors
-Immersive Multimodal Meditation is a project by [Ziyuan Zhu](https://www.zy-zhu.one/) and [Kat Labrou](https://github.com/babel-kat)
+Immersive Multimodal Meditation is a project by [Ziyuan Zhu](https://iam-zy.com/) and [Kat Labrou](https://github.com/babel-kat)
