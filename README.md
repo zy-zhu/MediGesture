@@ -33,8 +33,4 @@ python -m http.server
 ```
 
 ## Contributors
-MediGesture - Immersive Multimodal Meditation is a project by 
-
-[Ziyuan Zhu](https://iam-zy.com/)
-
-[Kat Labrou](https://github.com/babel-kat)
+MediGesture - Immersive Multimodal Meditation is a project by [Ziyuan Zhu](https://iam-zy.com/) and [Kat Labrou](https://github.com/babel-kat)
